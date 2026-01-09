@@ -14,8 +14,11 @@ def say(text):
 def takeCommands():
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        r.pause_threshold = 1
+        r.pause_threshold = 1.2
+        r.energy_threshold = 300 # Min loudness required to detect speech
+        r.dynamic_energy_threshold = True
         print("Listening...")
+        r.adjust_for_ambient_noise(source, duration=0.5)
         audio = r.listen(source)
     try:
         query = r.recognize_google(audio, language="en-in")

@@ -4,7 +4,7 @@ from websites import open_site
 
 def processCommand(command):
 
-    if "exit" in command or "quit" in command:
+    if "exit" in command or "quit" in command or "bye" in command:
         say("Goodbye Bhuvan, see you soon.")
         return "EXIT"
 
@@ -19,7 +19,7 @@ def processCommand(command):
         open_site(target)
         return "CONTINUE"
 
-    if "hello" in command:
+    if "hello" in command or "hi" in command:
         say("Hello Bhuvan")
         return "CONTINUE"
 
