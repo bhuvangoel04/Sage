@@ -1,4 +1,6 @@
 import os
+import subprocess
+import shutil
 
 APPS = {
     "notepad": "notepad",
@@ -10,7 +12,20 @@ APPS = {
 }
 
 def open_app(app_name):
+    app_name = app_name.lower()
+
     if app_name in APPS:
-        os.system(APPS[app_name])
-        return True
+        command = APPS[app_name]
+
+        # Check if command exists in PATH
+        if shutil.which(command):
+            subprocess.Popen(command)
+            return True
+
+        # Fallback for VS Code
+        vscode_path = r"C:\Users\{}\AppData\Local\Programs\Microsoft VS Code\Code.exe".format(os.getlogin())
+        if os.path.exists(vscode_path):
+            subprocess.Popen(vscode_path)
+            return True
+
     return False

@@ -3,3 +3,6 @@ wikipedia
 openai
 pyaudio
 pyttsx3
+shutil
+subprocess
+webbrowser

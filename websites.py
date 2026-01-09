@@ -6,7 +6,25 @@ KNOWN_SITES = {
     "github": "https://github.com",
 }
 
-def open_site(site):
-    webbrowser.open(
-        KNOWN_SITES.get(site, f"https://www.{site}.com")
+def normalize_site(site):
+    return (
+        site.replace(" dot ", ".")
+            .replace(" ", "")
     )
+    
+def open_site(site):
+    site = site.lower().strip()
+    # Known sites
+    if site in KNOWN_SITES:
+        webbrowser.open(KNOWN_SITES[site])
+        return
+
+    # fallback (normalize and construct URL)
+    normalized = normalize_site(site)
+
+    if "." in normalized:
+        url = "https://" + normalized
+    else:
+        url = f"https://www.{normalized}.com"
+
+    webbrowser.open(url)
