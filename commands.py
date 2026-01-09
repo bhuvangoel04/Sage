@@ -1,23 +1,27 @@
-import os
 from speech import say
-import webbrowser
+from apps import open_app
+from websites import open_site
 
 def processCommand(command):
+
     if "exit" in command or "quit" in command:
         say("Goodbye Bhuvan, see you soon.")
         return "EXIT"
 
-    elif "open notepad" in command:
-        say("Opening Notepad")
-        os.system("notepad")
-    elif "open youtube" in command:
-        say("Opening YouTube")
-        webbrowser.open("https://www.youtube.com")
-        
-    elif "hello" in command:
+    if command.startswith("open "):
+        target = command.replace("open ", "").strip()
+
+        if open_app(target): # try to open an app first otherwise treat it as website
+            say(f"Opening {target}")
+            return "CONTINUE"
+
+        say(f"Opening {target}")
+        open_site(target)
+        return "CONTINUE"
+
+    if "hello" in command:
         say("Hello Bhuvan")
+        return "CONTINUE"
 
-    else:
-        say("I am still learning that command")
-
+    say("I am still learning that command")
     return "CONTINUE"
