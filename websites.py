@@ -28,3 +28,8 @@ def open_site(site):
         url = f"https://www.{normalized}.com"
 
     webbrowser.open(url)
+
+def google_search(query):
+    query = query.replace(" ", "+")
+    url = f"https://www.google.com/search?q={query}"
+    webbrowser.open(url)
